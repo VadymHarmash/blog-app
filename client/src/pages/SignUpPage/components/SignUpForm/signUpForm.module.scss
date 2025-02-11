@@ -1,0 +1,52 @@
+$blue-color: #007bff;
+$grey-color: #333333;
+
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 62px);
+  width: 100%;
+
+  &__input {
+    max-width: 30%;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid $grey-color;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: $grey-color;
+    &:focus {
+      border-color: $blue-color;
+      outline: none;
+    }
+  }
+
+  &__error {
+    color: red;
+    font-size: 0.875rem;
+    margin-bottom: 12px;
+  }
+
+  &__button {
+    width: 100%;
+    max-width: 30%;
+    padding: 12px;
+    background-color: $blue-color;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: darken($blue-color, 10%);
+    }
+    &:disabled {
+      background-color: #a0c3ff;
+      cursor: not-allowed;
+    }
+  }
+}

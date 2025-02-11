@@ -1,0 +1,50 @@
+$blue-color: #007bff;
+$grey-color: #333333;
+
+.navbar {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  &__links {
+    display: flex;
+    gap: 20px;
+    align-self: center;
+  }
+
+  &__link {
+    &__text {
+      color: $grey-color;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $blue-color;
+      }
+    }
+  }
+
+  &__signUp {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    align-self: flex-end;
+
+    span {
+      font-size: 1rem;
+    }
+
+    &__button {
+      border: none;
+      padding: 0;
+      border-radius: 4px;
+      cursor: pointer;
+      color: $blue-color;
+      transition: color 0.3s ease;
+      &:hover {
+        color: $grey-color;
+        text-decoration: underline;
+      }
+    }
+  }
+}

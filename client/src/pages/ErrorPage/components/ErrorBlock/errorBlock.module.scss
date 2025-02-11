@@ -1,0 +1,23 @@
+$blue-color: #007bff;
+
+.errorBlock {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  p {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+
+  a {
+    color: $blue-color;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
