@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { logout } from "../../store/thunks/userThunk";
 import styles from "./navbar.module.scss";
-import { logout } from "../../store/reducers/userSlice";
 
 export const Navbar = () => {
   const navLinks = [
@@ -38,7 +38,9 @@ export const Navbar = () => {
               </li>
             ))}
           </ul>
-          <button className={styles.navbar__logout} onClick={handleLogout}>Logout</button>
+          <button className={styles.navbar__logout} onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       ) : (
         <div className={styles.navbar__signUp}>

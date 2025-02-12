@@ -41,6 +41,7 @@ export const LoginForm: React.FC = () => {
         {({ isSubmitting }: any) => {
           return (
             <Form className={styles.loginForm}>
+              <h2>Login</h2>
               <Field
                 type="text"
                 name="email"
@@ -63,6 +64,7 @@ export const LoginForm: React.FC = () => {
                 component="div"
                 className={styles.loginForm__error}
               />
+
               {loading ? (
                 "Logging in..."
               ) : (
@@ -74,6 +76,7 @@ export const LoginForm: React.FC = () => {
                   Login
                 </button>
               )}
+              {error && error.message && <p className={styles.error}>{error.message}</p>}
             </Form>
           );
         }}

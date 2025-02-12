@@ -3,7 +3,7 @@ import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { signUpValidationSchema } from "../../../../validation/SignUpValidationSchema";
 import { signUp } from "../../../../store/thunks/userThunk";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./signUpForm.module.scss";
 
 interface FormValues {
@@ -25,19 +25,25 @@ export const SignUpForm: React.FC = () => {
   const navigate = useNavigate();
   const { loading, error } = useAppSelector((state) => state.userReducer);
 
-  const handleFormSubmit = (
+  const handleFormSubmit = async (
     values: FormValues,
     { setSubmitting }: FormikHelpers<FormValues>,
   ) => {
-    dispatch(
-      signUp({
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      }),
-    );
-    setSubmitting(false);
-    navigate("/");
+    try {
+      await dispatch(
+        signUp({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        }),
+      ).unwrap();
+
+      navigate("/");
+    } catch (error) {
+      console.error("Registration failed:", error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -93,7 +99,6 @@ export const SignUpForm: React.FC = () => {
               component="div"
               className={styles.signUpForm__error}
             />
-            {error && <div className={styles.error}>{error}</div>}
 
             {loading ? (
               "Signing up..."
@@ -106,6 +111,13 @@ export const SignUpForm: React.FC = () => {
                 Sign Up
               </button>
             )}
+            {error && error.message && (
+              <p className={styles.error}>{error.message}</p>
+            )}
+
+            <p className={styles.signUpForm__haveProfile}>
+              If you have profile, go to <NavLink to={"/"}>login</NavLink>
+            </p>
           </Form>
         )}
       </Formik>

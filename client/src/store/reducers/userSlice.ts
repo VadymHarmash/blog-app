@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../../../interfaces/IUser";
-import { signUp, login } from "../thunks/userThunk";
+import { IError } from "../../../interfaces/IError";
+import { signUp, login, logout, checkAuth } from "../thunks/userThunk";
 
 interface UserState {
   user: IUser | null;
   isAuthenticated: boolean;
   loading: boolean;
-  error: string | null;
+  error: IError | null;
 }
 
 const initialState: UserState = {
@@ -19,12 +20,7 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    logout(state) {
-      state.user = null;
-      state.isAuthenticated = false;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(signUp.pending, (state) => {
@@ -38,8 +34,9 @@ export const userSlice = createSlice({
       })
       .addCase(signUp.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload as IError;
       })
+
       .addCase(login.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -51,10 +48,39 @@ export const userSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload as IError;
+      })
+
+      .addCase(logout.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as IError;
+      })
+
+      .addCase(checkAuth.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+      })
+      .addCase(checkAuth.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as IError;
+        state.isAuthenticated = false;
+        state.user = null;
       });
   },
 });
 
-export const { logout } = userSlice.actions;
 export default userSlice.reducer;

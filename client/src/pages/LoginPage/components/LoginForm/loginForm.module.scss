@@ -1,5 +1,6 @@
 $blue-color: #007bff;
 $grey-color: #333333;
+$red-color: #F44336;
 
 .loginForm {
   display: flex;
@@ -8,6 +9,11 @@ $grey-color: #333333;
   align-items: center;
   height: calc(100vh - 62px);
   width: 100%;
+
+  h2{
+    margin-bottom: 16px;
+    font-size: 1.75em;
+  }
 
   &__input {
     max-width: 30%;
@@ -25,7 +31,7 @@ $grey-color: #333333;
   }
 
   &__error {
-    color: red;
+    color: $red-color;
     font-size: 0.875rem;
     margin-bottom: 12px;
   }
@@ -48,5 +54,10 @@ $grey-color: #333333;
       background-color: #a0c3ff;
       cursor: not-allowed;
     }
+  }
+
+  .error{
+    margin-top: 12px;
+    color: $red-color;
   }
 }

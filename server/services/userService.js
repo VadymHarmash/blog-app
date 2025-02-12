@@ -2,14 +2,14 @@ const UserModel = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const tokenService = require("../services/tokenService");
 const UserDto = require("../dtos/userDto");
-const res = require("express/lib/response");
+const ApiError = require("../exceptions/apiError");
 
 class UserService {
   async signUp(name, email, password) {
     const candidate = await UserModel.findOne({ email });
 
     if (candidate) {
-      return res.status(404).send(`User already exists with email ${email}`);
+      throw ApiError.BadRequest("User already exists");
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
@@ -34,12 +34,12 @@ class UserService {
   async login(email, password) {
     const user = await UserModel.findOne({ email });
     if (!user) {
-      return res.status(404).send("User is not exist with this email");
+      throw ApiError.BadRequest("User is not exist with this email");
     }
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
-      return res.status(404).send("Incorrect password");
+      throw ApiError.BadRequest("Incorrect password");
     }
 
     const userDto = new UserDto(user);
@@ -58,18 +58,18 @@ class UserService {
   }
 
   async refresh(refreshToken) {
-    if(!refreshToken) {
-      res.status(401).send("Unauthorized");
+    if (!refreshToken) {
+      throw ApiError.UnauthorizedError();
     }
 
     const userData = tokenService.validateRefreshToken(refreshToken);
     const tokenFromDB = tokenService.findToken(refreshToken);
 
-    if(!userData || !tokenFromDB) {
-      return res.status(401).send("Unauthorized");
+    if (!userData || !tokenFromDB) {
+      throw ApiError.UnauthorizedError();
     }
 
-    const user = UserModel.findById(userData.id)
+    const user = await UserModel.findById(userData.id);
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
     await tokenService.saveToken(userDto.id, tokens.refreshToken);

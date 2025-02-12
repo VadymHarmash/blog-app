@@ -1,5 +1,6 @@
 $blue-color: #007bff;
 $grey-color: #333333;
+$red-color: #F44336;
 
 .signUpForm {
   display: flex;
@@ -25,7 +26,7 @@ $grey-color: #333333;
   }
 
   &__error {
-    color: red;
+    color: $red-color;
     font-size: 0.875rem;
     margin-bottom: 12px;
   }
@@ -48,5 +49,19 @@ $grey-color: #333333;
       background-color: #a0c3ff;
       cursor: not-allowed;
     }
+  }
+
+  &__haveProfile{
+    margin-top: 20px;
+    width: 30%;
+    text-align: right;
+    a{
+      color: $blue-color;
+    }
+  }
+
+  .error{
+    margin-top: 12px;
+    color: $red-color;
   }
 }

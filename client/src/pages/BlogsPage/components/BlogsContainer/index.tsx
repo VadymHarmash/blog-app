@@ -7,7 +7,6 @@ const posts: IPost[] = [
   {
     id: "1",
     author: "John Doe",
-    image: "#3498db",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     comments: [
       { id: "c1", author: "Jane Smith", text: "Great post!" },
@@ -17,7 +16,6 @@ const posts: IPost[] = [
   {
     id: "2",
     author: "Emily White",
-    image: "#e74c3c",
     text: "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.",
     comments: [{ id: "c3", author: "Bob Brown", text: "Nice article!" }],
   },

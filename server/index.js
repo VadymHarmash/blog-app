@@ -3,6 +3,7 @@ const userRoute = require("./routers/userRoute");
 const cors = require("cors");
 const connectDB = require("./db");
 const cookieParser = require("cookie-parser");
+const errorMiddleware = require("./middleware/errorMiddleware");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,8 +16,9 @@ app.use(
     origin: "http://localhost:3000",
   }),
 );
-
 app.use("/api", userRoute);
+
+app.use(errorMiddleware);
 
 connectDB();
 
