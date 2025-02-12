@@ -5,6 +5,14 @@ $medium-gray-color: #555;
 $very-light-gray-color: #f8f8f8;
 $shadow-color-color: rgba(0, 0, 0, 0.1);
 
+.loading{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .blogsContainer {
   display: flex;
   flex-direction: column;

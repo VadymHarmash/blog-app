@@ -8,7 +8,7 @@ import styles from "./blogDetails.module.scss";
 export const BlogDetails = () => {
   const postId = useParams().id;
   const dispatch = useAppDispatch();
-  const { post } = useAppSelector((state) => state.postReducer);
+  const { post, loading } = useAppSelector((state) => state.postReducer);
   const { user } = useAppSelector((state) => state.userReducer);
   const [commentText, setCommentText] = useState("");
   const [localComments, setLocalComments] = useState(post?.comments || []);
@@ -24,6 +24,10 @@ export const BlogDetails = () => {
       setLocalComments(post.comments);
     }
   }, [post]);
+
+  if(loading) {
+    return <div className={styles.loading}>Loading...</div>;
+  }
 
   const handleComment = () => {
     if (postId && commentText.trim() && user) {
@@ -46,7 +50,7 @@ export const BlogDetails = () => {
             <h2>{post.author.name}</h2>
             <p>{post.text}</p>
             <div className={styles.blogDetails__post__comments}>
-              {localComments.map((comment) => (
+              {localComments && localComments.slice().reverse().map((comment) => (
                 <div
                   key={comment._id}
                   className={styles.blogDetails__post__comment}
