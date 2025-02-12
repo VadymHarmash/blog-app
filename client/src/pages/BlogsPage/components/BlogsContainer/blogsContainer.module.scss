@@ -1,0 +1,15 @@
+$white-color: #fff;
+$light-gray-color: #ddd;
+$dark-gray-color: #333;
+$medium-gray-color: #555;
+$very-light-gray-color: #f8f8f8;
+$shadow-color-color: rgba(0, 0, 0, 0.1);
+
+.blogsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}

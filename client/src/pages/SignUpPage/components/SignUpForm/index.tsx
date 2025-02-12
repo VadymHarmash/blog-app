@@ -1,8 +1,8 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
-import { useAppDispatch } from "../../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { signUpValidationSchema } from "../../../../validation/SignUpValidationSchema";
-import { signUp } from "../../../../store/reducers/userSlice";
+import { signUp } from "../../../../store/thunks/userThunk";
 import { useNavigate } from "react-router-dom";
 import styles from "./signUpForm.module.scss";
 
@@ -23,22 +23,21 @@ const initialValues: FormValues = {
 export const SignUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { loading, error } = useAppSelector((state) => state.userReducer);
 
   const handleFormSubmit = (
     values: FormValues,
     { setSubmitting }: FormikHelpers<FormValues>,
   ) => {
-    setTimeout(() => {
-      dispatch(
-        signUp({
-          name: values.name,
-          email: values.email,
-          password: values.password,
-        }),
-      );
-      setSubmitting(false);
-      navigate("/");
-    }, 400);
+    dispatch(
+      signUp({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      }),
+    );
+    setSubmitting(false);
+    navigate("/");
   };
 
   return (
@@ -94,13 +93,19 @@ export const SignUpForm: React.FC = () => {
               component="div"
               className={styles.signUpForm__error}
             />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={styles.signUpForm__button}
-            >
-              Sign Up
-            </button>
+            {error && <div className={styles.error}>{error}</div>}
+
+            {loading ? (
+              "Signing up..."
+            ) : (
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={styles.signUpForm__button}
+              >
+                Sign Up
+              </button>
+            )}
           </Form>
         )}
       </Formik>

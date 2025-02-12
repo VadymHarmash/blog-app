@@ -1,33 +1,32 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
 import { loginValidationSchema } from "../../../../validation/LoginValidationSchema";
-import { useAppDispatch } from "../../../../hooks/redux";
-import { login } from "../../../../store/reducers/userSlice";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { login } from "../../../../store/thunks/userThunk";
 import styles from "./loginForm.module.scss";
 
 interface FormValues {
-  name: string;
+  email: string;
   password: string;
 }
 
-const initialValues: FormValues = { name: "", password: "" };
+const initialValues: FormValues = { email: "", password: "" };
 
 export const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector((state) => state.userReducer);
 
-  const handleFormSubmit = (
+  const handleLogin = (
     values: FormValues,
-    { setSubmitting }: FormikHelpers<FormValues>,
+    helpers: FormikHelpers<FormValues>
   ) => {
-    setTimeout(() => {
-      dispatch(
-        login({
-          name: values.name,
-          password: values.password,
-        }),
-      );
-      setSubmitting(false);
-    }, 400);
+    dispatch(
+      login({
+        email: values.email,
+        password: values.password,
+      })
+    );
+    helpers.setSubmitting(false);
   };
 
   return (
@@ -35,41 +34,49 @@ export const LoginForm: React.FC = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={loginValidationSchema}
-        onSubmit={handleFormSubmit}
+        onSubmit={(values, helpers) => {
+          handleLogin(values, helpers);
+        }}
       >
-        {({ isSubmitting }: { isSubmitting: boolean }) => (
-          <Form className={styles.loginForm}>
-            <Field
-              type="text"
-              name="name"
-              placeholder="Name"
-              className={styles.loginForm__input}
-            />
-            <ErrorMessage
-              name="name"
-              component="div"
-              className={styles.loginForm__error}
-            />
-            <Field
-              type="password"
-              name="password"
-              placeholder="Password"
-              className={styles.loginForm__input}
-            />
-            <ErrorMessage
-              name="password"
-              component="div"
-              className={styles.loginForm__error}
-            />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={styles.loginForm__button}
-            >
-              Submit
-            </button>
-          </Form>
-        )}
+        {({ isSubmitting }: any) => {
+          return (
+            <Form className={styles.loginForm}>
+              <Field
+                type="text"
+                name="email"
+                placeholder="Email"
+                className={styles.loginForm__input}
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className={styles.loginForm__error}
+              />
+              <Field
+                type="password"
+                name="password"
+                placeholder="Password"
+                className={styles.loginForm__input}
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className={styles.loginForm__error}
+              />
+              {loading ? (
+                "Logging in..."
+              ) : (
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={styles.loginForm__button}
+                >
+                  Login
+                </button>
+              )}
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
