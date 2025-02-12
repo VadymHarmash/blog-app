@@ -1,31 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./blogsContainer.module.scss";
 import { BlogPost } from "../BlogPost";
 import { IPost } from "../../../../../interfaces/ui/IPost";
-
-const posts: IPost[] = [
-  {
-    id: "1",
-    author: "John Doe",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    comments: [
-      { id: "c1", author: "Jane Smith", text: "Great post!" },
-      { id: "c2", author: "Alice Johnson", text: "Interesting thoughts." },
-    ],
-  },
-  {
-    id: "2",
-    author: "Emily White",
-    text: "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.",
-    comments: [{ id: "c3", author: "Bob Brown", text: "Nice article!" }],
-  },
-];
+import { useAppSelector, useAppDispatch } from "../../../../hooks/redux";
+import { getPosts } from "../../../../store/thunks/postThunk";
 
 export const BlogsContainer: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { posts, loading, error } = useAppSelector((state) => state.postReducer);
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <div className={styles.blogsContainer}>
-      {posts.map((post) => (
-        <BlogPost key={post.id} post={post} />
+      {posts.slice().reverse().map((post: IPost) => (
+        <BlogPost key={post._id} post={post} />
       ))}
     </div>
   );

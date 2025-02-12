@@ -1,5 +1,6 @@
 const express = require("express");
 const userRoute = require("./routers/userRoute");
+const postRoute = require("./routers/postRoute");
 const cors = require("cors");
 const connectDB = require("./db");
 const cookieParser = require("cookie-parser");
@@ -17,6 +18,7 @@ app.use(
   }),
 );
 app.use("/api", userRoute);
+app.use("/api/posts", postRoute);
 
 app.use(errorMiddleware);
 

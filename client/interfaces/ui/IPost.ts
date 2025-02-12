@@ -1,8 +1,11 @@
 import { IComment } from "./IComment";
 
 export interface IPost {
-  id: string;
-  author: string;
+  _id: string;
+  author: {
+    id: string;
+    name: string;
+  };
   text: string;
   comments: IComment[];
 }

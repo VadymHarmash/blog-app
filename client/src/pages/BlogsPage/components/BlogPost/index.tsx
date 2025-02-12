@@ -14,7 +14,7 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         style={{ backgroundColor: post.image }}
       />
       <div className={styles.blogsContainer__post__content}>
-        <h3 className={styles.blogsContainer__post__author}>{post.author}</h3>
+        <h3 className={styles.blogsContainer__post__author}>{post.author.name}</h3>
         <p className={styles.blogsContainer__post__text}>{post.text}</p>
         <div className={styles.blogsContainer__post__comments}>
           <h4>Comments:</h4>
