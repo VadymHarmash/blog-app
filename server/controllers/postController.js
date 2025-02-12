@@ -30,10 +30,16 @@ class PostController {
       const { text } = req.body;
 
       if (!text || !id) {
-        return res.status(400).json({ message: "Post ID and text are required" });
+        return res
+          .status(400)
+          .json({ message: "Post ID and text are required" });
       }
 
-      const updatedPost = await PostModel.findByIdAndUpdate(id, { text }, { new: true });
+      const updatedPost = await PostModel.findByIdAndUpdate(
+        id,
+        { text },
+        { new: true },
+      );
 
       if (!updatedPost) {
         return res.status(404).json({ message: "Post not found" });
@@ -56,7 +62,9 @@ class PostController {
 
       res.status(200).json({ message: "Post deleted successfully" });
     } catch (e) {
-      res.status(500).json({ message: "Error deleting post", error: e.message });
+      res
+        .status(500)
+        .json({ message: "Error deleting post", error: e.message });
     }
   }
 
@@ -65,9 +73,25 @@ class PostController {
       const posts = await PostModel.find();
       res.status(200).json(posts);
     } catch (error) {
-      res.status(500).json({ message: "Error fetching posts", error: error.message });
+      res
+        .status(500)
+        .json({ message: "Error fetching posts", error: error.message });
     }
   }
+
+  async getPost(req, res) {
+    try {
+      const { id } = req.params;
+      const post = await PostModel.findById(id);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      return res.status(200).json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Error finding post", error: error.message });
+    }
+  }
+
 
   async getPostsByAuthor(req, res) {
     try {
@@ -80,7 +104,9 @@ class PostController {
       const posts = await PostModel.find({ author: authorId });
 
       if (!posts || posts.length === 0) {
-        return res.status(404).json({ message: "No posts found for this author" });
+        return res
+          .status(404)
+          .json({ message: "No posts found for this author" });
       }
 
       res.status(200).json(posts);
@@ -90,7 +116,30 @@ class PostController {
     }
   }
 
-  async commentPost(req, res) {}
+  async commentPost(req, res) {
+    const { postId, author, text } = req.body;
+
+    if (!postId || !author || !text) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    try {
+      const post = await PostModel.findById(postId);
+
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+
+      post.comments.push({ author, text });
+
+      await post.save();
+
+      res.status(200).json(post);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error adding comment", error });
+    }
+  }
 }
 
 module.exports = new PostController();

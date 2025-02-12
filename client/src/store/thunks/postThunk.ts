@@ -17,6 +17,21 @@ export const getPosts = createAsyncThunk(
   }
 );
 
+export const getPost = createAsyncThunk(
+  "post/getPost",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await PostService.getPost(id);
+      return response.data;
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      return rejectWithValue(
+        axiosError.response?.data || { message: axiosError.message }
+      );
+    }
+  }
+);
+
 export const getPostsByAuthor = createAsyncThunk(
   "post/getPostsByAuthor",
   async (authorId: string, { rejectWithValue }) => {
@@ -67,6 +82,21 @@ export const deletePost = createAsyncThunk(
   async (id: string, { rejectWithValue }) => {
     try {
       const response = await PostService.deletePost(id);
+      return response.data;
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      return rejectWithValue(
+        axiosError.response?.data || { message: axiosError.message }
+      );
+    }
+  }
+);
+
+export const commentPost = createAsyncThunk(
+  "post/commentPost",
+  async ({ postId, author, text }: { postId: string; author: string; text: string }, { rejectWithValue }) => {
+    try {
+      const response = await PostService.commentPost(postId, author, text);
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;

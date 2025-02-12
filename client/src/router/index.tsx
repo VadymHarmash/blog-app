@@ -6,6 +6,7 @@ import { BlogsPage } from "../pages/BlogsPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { LoginPage } from "../pages/LoginPage";
 import { SignUpPage } from "../pages/SignUpPage";
+import { BlogDetailsPage } from "../pages/BlogDetailsPage";
 import { useAppSelector } from "../hooks/redux";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
@@ -31,6 +32,14 @@ const routes: RouteObject[] = [
         element: (
           <ProtectedRoute>
             <ProfilePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/blog/:id",
+        element: (
+          <ProtectedRoute>
+            <BlogDetailsPage />
           </ProtectedRoute>
         ),
       },

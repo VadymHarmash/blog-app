@@ -3,6 +3,7 @@ const postController = require("../controllers/postController");
 const postRouter = express.Router();
 
 postRouter.get("/", postController.getPosts);
+postRouter.get("/:id", postController.getPost);
 postRouter.get("/:authorId", postController.getPostsByAuthor);
 postRouter.post("/add", postController.addPost);
 postRouter.post("/comment", postController.commentPost);

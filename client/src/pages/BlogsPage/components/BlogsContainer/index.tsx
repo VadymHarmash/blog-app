@@ -23,7 +23,7 @@ export const BlogsContainer: React.FC = () => {
 
   return (
     <div className={styles.blogsContainer}>
-      {posts.slice().reverse().map((post: IPost) => (
+      {posts && posts.slice().reverse().map((post: IPost) => (
         <BlogPost key={post._id} post={post} />
       ))}
     </div>
