@@ -38,7 +38,7 @@ export const LoginForm: React.FC = () => {
           handleLogin(values, helpers);
         }}
       >
-        {({ isSubmitting }: any) => {
+        {({ isSubmitting }) => {
           return (
             <Form className={styles.loginForm}>
               <h2>Login</h2>

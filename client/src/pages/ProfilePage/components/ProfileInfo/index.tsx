@@ -49,7 +49,7 @@ export const ProfileInfo: React.FC = () => {
   };
 
   useEffect(() => {
-    user && dispatch(getPostsByAuthor(user.id));
+    user && dispatch(getPostsByAuthor(user?.id));
   }, [user, dispatch]);
 
   if (!user) return null;

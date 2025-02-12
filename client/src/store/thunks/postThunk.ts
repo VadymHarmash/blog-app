@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
+import { IAddPostRequest } from "../../../interfaces/requests/IAddPostRequest";
+import { ICommentPostRequest } from "../../../interfaces/requests/ICommentPostRequest";
 import PostService from "../../services/PostService";
 
 export const getPosts = createAsyncThunk(
@@ -11,10 +13,10 @@ export const getPosts = createAsyncThunk(
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       return rejectWithValue(
-        axiosError.response?.data || { message: axiosError.message }
+        axiosError.response?.data || { message: axiosError.message },
       );
     }
-  }
+  },
 );
 
 export const getPost = createAsyncThunk(
@@ -26,10 +28,10 @@ export const getPost = createAsyncThunk(
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       return rejectWithValue(
-        axiosError.response?.data || { message: axiosError.message }
+        axiosError.response?.data || { message: axiosError.message },
       );
     }
-  }
+  },
 );
 
 export const getPostsByAuthor = createAsyncThunk(
@@ -41,25 +43,25 @@ export const getPostsByAuthor = createAsyncThunk(
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       return rejectWithValue(
-        axiosError.response?.data || { message: axiosError.message }
+        axiosError.response?.data || { message: axiosError.message },
       );
     }
-  }
+  },
 );
 
 export const addPost = createAsyncThunk(
   "post/addPost",
-  async ({ text, authorId }: { text: string; authorId: string }, { rejectWithValue }) => {
+  async ({ text, authorId }: IAddPostRequest, { rejectWithValue }) => {
     try {
       const response = await PostService.addPost(text, authorId);
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       return rejectWithValue(
-        axiosError.response?.data || { message: axiosError.message }
+        axiosError.response?.data || { message: axiosError.message },
       );
     }
-  }
+  },
 );
 
 export const editPost = createAsyncThunk(
@@ -71,10 +73,10 @@ export const editPost = createAsyncThunk(
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       return rejectWithValue(
-        axiosError.response?.data || { message: axiosError.message }
+        axiosError.response?.data || { message: axiosError.message },
       );
     }
-  }
+  },
 );
 
 export const deletePost = createAsyncThunk(
@@ -86,23 +88,26 @@ export const deletePost = createAsyncThunk(
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       return rejectWithValue(
-        axiosError.response?.data || { message: axiosError.message }
+        axiosError.response?.data || { message: axiosError.message },
       );
     }
-  }
+  },
 );
 
 export const commentPost = createAsyncThunk(
   "post/commentPost",
-  async ({ postId, author, text }: { postId: string; author: string; text: string }, { rejectWithValue }) => {
+  async (
+    { postId, author, text }: ICommentPostRequest,
+    { rejectWithValue },
+  ) => {
     try {
       const response = await PostService.commentPost(postId, author, text);
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       return rejectWithValue(
-        axiosError.response?.data || { message: axiosError.message }
+        axiosError.response?.data || { message: axiosError.message },
       );
     }
-  }
+  },
 );

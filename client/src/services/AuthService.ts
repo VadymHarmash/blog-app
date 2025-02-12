@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { $axios } from "./axios/axiosInstance";
-import { IUserToLogin } from "../../interfaces/IUserToLogin";
-import { IUserToSignUp } from "../../interfaces/IUserToSignUp";
+import { IUserToLogin } from "../../interfaces/users/IUserToLogin";
+import { IUserToSignUp } from "../../interfaces/users/IUserToSignUp";
 import { IAuthResponse } from "../../interfaces/responses/IAuthResponse";
 
 export default class AuthService {

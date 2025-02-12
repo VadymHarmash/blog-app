@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import AuthService from "../../services/AuthService";
-import { IUserToLogin } from "../../../interfaces/IUserToLogin";
-import { IUserToSignUp } from "../../../interfaces/IUserToSignUp";
+import { IUserToLogin } from "../../../interfaces/users/IUserToLogin";
+import { IUserToSignUp } from "../../../interfaces/users/IUserToSignUp";
 import { AxiosError } from "axios";
 import axios from "axios";
 import { IAuthResponse } from "../../../interfaces/responses/IAuthResponse";
@@ -9,7 +9,7 @@ import { IAuthResponse } from "../../../interfaces/responses/IAuthResponse";
 const url = "http://localhost:5000/api";
 
 export const signUp = createAsyncThunk(
-  "user/signUp",
+  "users/signUp",
   async (userData: IUserToSignUp, { rejectWithValue }) => {
     try {
       const response = await AuthService.signUp(userData);
@@ -24,7 +24,7 @@ export const signUp = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "user/login",
+  "users/login",
   async (userData: IUserToLogin, { rejectWithValue }) => {
     try {
       const response = await AuthService.login(userData);
@@ -40,7 +40,7 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk(
-  "user/logout",
+  "users/logout",
   async (_, { rejectWithValue }) => {
     try {
       await AuthService.logout();
@@ -56,7 +56,7 @@ export const logout = createAsyncThunk(
 );
 
 export const checkAuth = createAsyncThunk(
-  "user/checkAuth",
+  "users/checkAuth",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get<IAuthResponse>(`${url}/refresh`, {

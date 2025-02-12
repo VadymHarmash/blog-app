@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IPost } from "../../../interfaces/ui/IPost";
-import { IError } from "../../../interfaces/IError";
+import { IError } from "../../../interfaces/errors/IError";
 import {
   addPost,
   commentPost,
@@ -38,7 +38,6 @@ export const postSlice = createSlice({
       })
       .addCase(getPosts.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload)
         state.posts = action.payload;
       })
       .addCase(getPosts.rejected, (state, action) => {
@@ -71,6 +70,7 @@ export const postSlice = createSlice({
         state.loading = false;
         state.error = action.payload as IError;
       })
+
       .addCase(addPost.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -83,6 +83,7 @@ export const postSlice = createSlice({
         state.loading = false;
         state.error = action.payload as IError;
       })
+
       .addCase(deletePost.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -97,6 +98,7 @@ export const postSlice = createSlice({
         state.loading = false;
         state.error = action.payload as IError;
       })
+
       .addCase(commentPost.pending, (state) => {
         state.loading = true;
         state.error = null;

@@ -2,9 +2,9 @@ const express = require("express");
 const postController = require("../controllers/postController");
 const postRouter = express.Router();
 
-postRouter.get("/", postController.getPosts);
 postRouter.get("/:id", postController.getPost);
-postRouter.get("/:authorId", postController.getPostsByAuthor);
+postRouter.get("/author/:authorId", postController.getPostsByAuthor);
+postRouter.get("/", postController.getPosts);
 postRouter.post("/add", postController.addPost);
 postRouter.post("/comment", postController.commentPost);
 postRouter.put("/edit/:id", postController.editPost);

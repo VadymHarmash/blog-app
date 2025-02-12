@@ -1,40 +1,31 @@
-import { AxiosResponse } from "axios";
 import { $axios } from "./axios/axiosInstance";
-import { IPostsResponse } from "../../interfaces/responses/IPostsResponse";
 
 export default class AuthService {
-  static async getPosts(): Promise<AxiosResponse<any>> {
-    return await $axios.get<any>("/posts");
+  static async getPosts() {
+    return await $axios.get("/posts");
   }
 
-  static async getPost(id: string): Promise<AxiosResponse<any>> {
-    return await $axios.get<any>(`/posts/${id}`);
+  static async getPost(id: string) {
+    return await $axios.get(`/posts/${id}`);
   }
 
-  static async getPostsByAuthor(authorId: string): Promise<AxiosResponse<any>> {
-    return await $axios.get<any>(`/posts/${authorId}`);
+  static async getPostsByAuthor(authorId: string) {
+    return await $axios.get(`/posts/author/${authorId}`);
   }
 
-  static async addPost(
-    text: string,
-    authorId: string,
-  ): Promise<AxiosResponse<any>> {
-    return await $axios.post<any>("/posts/add", { text, authorId });
+  static async addPost(text: string, authorId: string) {
+    return await $axios.post("/posts/add", { text, authorId });
   }
 
-  static async editPost(id: string, text: string): Promise<AxiosResponse<any>> {
-    return await $axios.put<any>(`/posts/edit/${id}`, { text });
+  static async editPost(id: string, text: string) {
+    return await $axios.put(`/posts/edit/${id}`, { text });
   }
 
-  static async deletePost(id: string): Promise<AxiosResponse<any>> {
-    return await $axios.delete<any>(`/posts/delete/${id}`);
+  static async deletePost(id: string) {
+    return await $axios.delete(`/posts/delete/${id}`);
   }
 
-  static async commentPost(
-    postId: string,
-    author: string,
-    text: string,
-  ): Promise<AxiosResponse<any>> {
+  static async commentPost(postId: string, author: string, text: string) {
     return await $axios.post(`/posts/comment`, { postId, author, text });
   }
 }

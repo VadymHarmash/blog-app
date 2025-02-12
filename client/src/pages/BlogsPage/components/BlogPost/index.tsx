@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./blogPost.module.scss";
+import { IPost } from "../../../../../interfaces/ui/IPost";
 
 type BlogPostProps = {
-  post: any;
+  post: IPost;
 };
 
 export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
@@ -15,10 +16,6 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
   return (
     <div className={styles.blogsContainer__post} onClick={handlePostClick}>
-      <div
-        className={styles.blogsContainer__post__image}
-        style={{ backgroundColor: post.image }}
-      />
       <div className={styles.blogsContainer__post__content}>
         <h3 className={styles.blogsContainer__post__author}>
           {post.author.name}

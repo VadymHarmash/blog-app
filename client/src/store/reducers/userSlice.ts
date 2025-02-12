@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUser } from "../../../interfaces/IUser";
-import { IError } from "../../../interfaces/IError";
+import { IUser } from "../../../interfaces/users/IUser";
+import { IError } from "../../../interfaces/errors/IError";
 import { signUp, login, logout, checkAuth } from "../thunks/userThunk";
 
 interface UserState {

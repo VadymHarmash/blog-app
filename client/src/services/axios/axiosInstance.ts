@@ -1,11 +1,10 @@
 import axios from "axios";
 import { IAuthResponse } from "../../../interfaces/responses/IAuthResponse";
-
-export const apiUrl = "http://localhost:5000/api";
+import { API_URL } from "../../global/variables";
 
 export const $axios = axios.create({
   withCredentials: true,
-  baseURL: apiUrl,
+  baseURL: API_URL,
 });
 
 $axios.interceptors.request.use((config) => {
