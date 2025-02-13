@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./blogPost.module.scss";
 import { IPost } from "../../../../../interfaces/ui/IPost";
+import styles from "./blogPost.module.scss";
 
 type BlogPostProps = {
   post: IPost;

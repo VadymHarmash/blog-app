@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./errorBlock.module.scss";
 import { NavLink } from "react-router-dom";
+import styles from "./errorBlock.module.scss";
 
 export const ErrorBlock = () => {
   return (

@@ -1,8 +1,8 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
 import { loginValidationSchema } from "../../../../validation/LoginValidationSchema";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { login } from "../../../../store/thunks/userThunk";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import styles from "./loginForm.module.scss";
 
 interface FormValues {

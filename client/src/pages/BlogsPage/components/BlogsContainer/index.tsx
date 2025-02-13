@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import styles from "./blogsContainer.module.scss";
-import { BlogPost } from "../BlogPost";
-import { IPost } from "../../../../../interfaces/ui/IPost";
-import { useAppSelector, useAppDispatch } from "../../../../hooks/redux";
 import { getPosts } from "../../../../store/thunks/postThunk";
+import { BlogPost } from "../BlogPost";
+import { useAppSelector, useAppDispatch } from "../../../../hooks/redux";
+import { IPost } from "../../../../../interfaces/ui/IPost";
+import styles from "./blogsContainer.module.scss";
 
 export const BlogsContainer: React.FC = () => {
   const dispatch = useAppDispatch();

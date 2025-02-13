@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styles from "./profileForm.module.scss";
 import { addPost, getPostsByAuthor } from "../../../../store/thunks/postThunk";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import styles from "./profileForm.module.scss";
 
 export const ProfileForm = () => {
   const dispatch = useAppDispatch();

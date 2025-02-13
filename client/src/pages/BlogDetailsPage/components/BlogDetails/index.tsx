@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { getPost, commentPost } from "../../../../store/thunks/postThunk";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
-import { getPost, commentPost } from "../../../../store/thunks/postThunk";
 import { IComment } from "../../../../../interfaces/ui/IComment";
 import styles from "./blogDetails.module.scss";
 
