@@ -5,6 +5,7 @@ import {
   addPost,
   commentPost,
   deletePost,
+  editPost,
   getPost,
   getPosts,
   getPostsByAuthor,
@@ -80,6 +81,18 @@ export const postSlice = createSlice({
         state.authorPosts = [action.payload, ...state.authorPosts];
       })
       .addCase(addPost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as IError;
+      })
+
+      .addCase(editPost.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(editPost.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(editPost.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as IError;
       })

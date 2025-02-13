@@ -18,13 +18,13 @@ export const LoginForm: React.FC = () => {
 
   const handleLogin = (
     values: FormValues,
-    helpers: FormikHelpers<FormValues>
+    helpers: FormikHelpers<FormValues>,
   ) => {
     dispatch(
       login({
         email: values.email,
         password: values.password,
-      })
+      }),
     );
     helpers.setSubmitting(false);
   };
@@ -66,7 +66,7 @@ export const LoginForm: React.FC = () => {
               />
 
               {loading ? (
-                "Logging in..."
+                <p>"Logging in..."</p>
               ) : (
                 <button
                   type="submit"
@@ -76,7 +76,9 @@ export const LoginForm: React.FC = () => {
                   Login
                 </button>
               )}
-              {error && error.message && <p className={styles.error}>{error.message}</p>}
+              {error && error.message && (
+                <p className={styles.error}>{error.message}</p>
+              )}
             </Form>
           );
         }}

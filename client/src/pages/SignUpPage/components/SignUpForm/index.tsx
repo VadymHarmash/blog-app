@@ -101,7 +101,7 @@ export const SignUpForm: React.FC = () => {
             />
 
             {loading ? (
-              "Signing up..."
+              <p>"Signing up..."</p>
             ) : (
               <button
                 type="submit"
